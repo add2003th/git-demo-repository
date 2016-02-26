@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Realtime Movie Ticket - AngularFire</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h3>Realtime Movie Ticket - AngularFire</h3>
+
+		<hr>
+
+		<div ng-controller="HomeController" align="center">
+			<button class="btn btn-default" ng-repeat="m in movies" ng-click="chooseMovie(m)">{{ m.title }}</button>
+
+			<p></p>
+			<img ng-src="{{ currentMovie.image }}">
+
+			<hr>
+			<span ng-repeat="s in seats">
+				<button ng-click="reserveSeat(s)" class="btn" ng-class="isReserved(s)?'btn-danger':'btn-success'">
+					{{ s }}
+				</button>
+
+				<p ng-if="($index!=0)&&($index!=seats.length-2)&&($index%9==0)"></p>
+			</span>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/firebase.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
