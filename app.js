@@ -1,10 +1,10 @@
 angular.module('app', [])
 	.constant('FIREBASE_URL', 'https://sizzling-fire-6500.firebaseio.com')
-	.factory('DataFactory', function($http, $q) {
+	.factory('MovieDataFactory', function($http, $q) {
 		return {
 			getMovies: function() {
 				return $q(function(resolve, reject) {
-					$http.get('movie.json')
+					$http.get('movies.json')
 						.then(function(res) {
 							resolve(res.data);
 						})
@@ -21,7 +21,7 @@ angular.module('app', [])
 			}
 		};
 	})
-	.controller('HomeController', function($scope, DataFactory, FIREBASE_URL) {
+	.controller('HomeController', function($scope, MovieDataFactory, FIREBASE_URL) {
 		var reservationRef = new Firebase(FIREBASE_URL).child('reservations');
 
 		$scope.movies = [];
@@ -47,13 +47,13 @@ angular.module('app', [])
 		});
 
 		function initMovieData() {
-			DataFactory.getMovies()
+			MovieDataFactory.getMovies()
 				.then(function(movies) {
 					$scope.movies = movies;
 					$scope.chooseMovie(movies[0]);
 				});
 
-			DataFactory.getSeats()
+			MovieDataFactory.getSeats()
 				.then(function(seats) {
 					$scope.seats = seats;
 				});
